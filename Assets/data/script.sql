@@ -85,3 +85,8 @@ ALTER TABLE movie_genres ADD FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
 ALTER TABLE movie_genres ADD FOREIGN KEY (genre_id) REFERENCES genres (genre_id);
 
 ALTER TABLE archives ADD FOREIGN KEY (archived_by_user_id) REFERENCES users (user_id);
+
+INSERT IGNORE INTO roles (role_id, role) VALUES ('admin', 'admin');
+
+INSERT IGNORE INTO users (user_id, role_id, username, email, password_hash, is_active) 
+VALUES ('admin', 'admin', 'admin', 'admin@gmail.com', '$2a$12$4tU0ZnyeCeQMgzVRc8TBUOAIuJsTwaBkdqZKPWZPGfpzXs/M92Nka', TRUE);
