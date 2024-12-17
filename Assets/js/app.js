@@ -1,11 +1,6 @@
 const login = document.getElementById("login")
 const signup = document.getElementById("signup")
 
-
-const login_submit = document.getElementById('input[name="login"]')
-const signUp_submit = document.querySelector('input[name="signup"]')
-
-
 //SIGN UP VALIDATION AND DATA SEND START
 signup.addEventListener("submit",async e =>{
     e.preventDefault()
@@ -44,34 +39,26 @@ signup.addEventListener("submit",async e =>{
             },
             body : `name=${encodeURIComponent(signUp_name)}&email=${encodeURIComponent(signUp_email)}&password=${encodeURIComponent(signUp_pass)}`,
         })
-        
-        console.log("Response status:", response.status);
-    console.log("Response headers:", response.headers);
 
-    // Check the response text before parsing as JSON
-    const responseText = await response.text();
-    console.log("Raw response text:", responseText);
+        const responseText = await response.text();
 
-    try {
-        const result = JSON.parse(responseText);
-        console.log("Parsed result:", result);
+        try {
+            const result = JSON.parse(responseText);
 
-        if(result.Success){
-            alert(result.Success);
-            signup.reset();
-        } else if(result.error) {
-            alert(result.error);
+            if(result.Success){
+                alert(result.Success);
+            } else if(result.error) {
+                alert(result.error);
+            }
+        } catch (parseError) {
+            console.error("JSON parsing error:", parseError);
         }
-    } catch (parseError) {
-        console.error("JSON parsing error:", parseError);
-        console.log("Unparseable response text:", responseText);
-        alert("Error parsing server response");
-    }
     }catch(error){
         console.error("error : ", error)
-        alert("An error occurred while signing up.")
     }
     //SEND DATA END
+
+    login.reset()
     signup.reset()
 })
 //SIGN UP VALIDATION AND DATA SEND END
@@ -102,6 +89,7 @@ login.addEventListener("submit", async e =>{
         console.error("error : ", error)
         alert("An error occurred while signing up.")
     }
+    signup.reset()
     login.reset()
 })
 //LOGIN DATA SEND END
