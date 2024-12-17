@@ -80,11 +80,14 @@ login.addEventListener("submit", async e =>{
         })
 
         const result = await response.json()
+
         if(result.success){
             alert(result.success)
+            window.location.href = result.redirect
         }else{
             alert(result.error)
         }
+
     }catch(error){
         console.error("error : ", error)
         alert("An error occurred while signing up.")

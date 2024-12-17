@@ -33,7 +33,9 @@
                     $_SESSION["user_id"] = $user["user_id"];
                     $_SESSION["role_id"] = $user["role_id"];
 
-                    echo json_encode(["success" => "Login Successful."]);
+                    $redirect_url = ($user["role_id"] === "admin") ? "Assets/includes/admin_dash.php" : "Assets/includes/user_dash.php";
+
+                    echo json_encode(["success" => "Login Successful.", "redirect" => $redirect_url]);
                     exit;
                 } else {
                     echo json_encode(["error" => "Password incorrect."]);
