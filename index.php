@@ -33,19 +33,19 @@
             <div class="form-content">
                     <div class="login-form">
                     <div class="title">Login</div>
-                    <form action="#" method="post">
+                    <form id="login" action="#" method="post">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Enter your email" required>
+                                <input id="login-email" type="email" placeholder="Enter your email" required>
                             </div>
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Enter your password" required>
+                                <input id="login-pass" type="password" placeholder="Enter your password" required>
                             </div>
                                 <div class="text"><a href="#">Forgot password?</a></div>
                                 <div class="button input-box">
-                                <input type="submit" value="Sumbit">
+                                <input type="submit" value="Sumbit" name="login">
                             </div>
                             <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
                         </div>
@@ -53,22 +53,22 @@
                 </div>
                 <div class="signup-form">
                     <div class="title">Signup</div>
-                    <form action="#" method="post">
+                    <form id="signup" action="#" method="post">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Enter your name" required>
+                                <input id="signup-name" type="text" placeholder="Enter your name" required>
                             </div>
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Enter your email" required>
+                                <input id="signup-email" type="email" placeholder="Enter your email" required>
                             </div>
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Enter your password" required>
+                                <input id="signup-pass" type="password" placeholder="Enter your password" required>
                             </div>
                             <div class="button input-box">
-                                <input type="submit" value="Sumbit">
+                                <input type="submit" value="Sumbit" name="signup">
                             </div>
                             <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
                         </div>
@@ -77,5 +77,6 @@
             </div>
         </div>
     </div>
+    <script src="Assets/js/app.js"></script>
 </body>
 </html>
