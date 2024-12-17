@@ -18,11 +18,16 @@
         }
 
         try{
-            $stmt = $db -> prepare("SELECT user_id, role_id, password_hash FROM users WHERE email = ?");
+            $stmt = $db -> prepare("SELECT user_id, role_id, password_hash, is_active FROM users WHERE email = ?");
             $stmt -> execute([$email]);
             $user = $stmt -> fetch(PDO::FETCH_ASSOC);
 
             if($user){
+                if(!$user["is_active"]){
+                    echo json_encode(["error" => "Your account is not approved yet."]);
+                    exit;
+                }
+
                 if(password_verify($password, $user["password_hash"])){
                     session_start();
                     $_SESSION["user_id"] = $user["user_id"];
