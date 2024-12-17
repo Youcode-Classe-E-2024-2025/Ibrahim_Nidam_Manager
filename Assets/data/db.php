@@ -1,29 +1,25 @@
 <?php
-    $dsn = "mysql:localhost;db=manager_db";
+    $host = "localhost";
+    $dbname = "manager_db";
     $user = "root";
     $pass = "";
 
-    try{
+    try {
+        // Connect to MySQL without specifying the database
+        $dsn = "mysql:host=$host";
         $db = new PDO($dsn, $user, $pass);
-        $db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // AUTOMATIC DATABASE CREATION START
-        $sqlScript = file_get_contents("script.sql");
-        if(!$sqlScript){
-            throw new Exception("Could not read file");
-        }
-        $db -> exec($sqlScript);
-        echo "Database and tables created successfully";
-        // AUTOMATIC DATABASE CREATION END
+        // Create the database if it doesn't exist
+        $db->exec("CREATE DATABASE IF NOT EXISTS $dbname");
+        $db->exec("USE $dbname");
 
-        // TEST IF CONNECTION IS A SUCCESS START
-        $query = $db -> $query("SELECT 1 ");
-        if ($query) {
-            echo "Database connected successfully.";
-        }
-        // TEST IF CONNECTION IS A SUCCESS END
+        // Execute script.sql to create tables
+        $sqlScript = file_get_contents(__DIR__ . "/script.sql");
+        $db->exec($sqlScript);
 
+    } catch (PDOException $e) {
+        error_log("Database Setup Error: " . $e->getMessage());
+        die("Database error: " . $e->getMessage());
     }
-    catch(PDOException $e){
-        die("Database error : " . $e -> getMessage());
-    }
+?>

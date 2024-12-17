@@ -8,7 +8,7 @@
     font-family: "Poppins", sans-serif;
 }
 
-body {
+#login-signup {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -171,9 +171,9 @@ body {
     border-color: #7d2ae8;
 }
 
-.form-content .input-box i {
+svg {
     position: absolute;
-    color: #7d2ae8;
+    fill: #7d2ae8;
     font-size: 17px;
 }
 
@@ -249,4 +249,8 @@ body {
     .container #flip:checked ~ .forms .login-form {
         display: none;
     }
+}
+.password-toggle{
+    position: absolute;
+    right: 0;
 }

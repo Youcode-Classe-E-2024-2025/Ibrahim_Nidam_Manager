@@ -2,70 +2,68 @@ CREATE DATABASE IF NOT EXISTS manager_db;
 
 USE manager_db;
 
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     role_id varchar(255) PRIMARY KEY,
     role varchar(255)
 );
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id varchar(255) PRIMARY KEY,
     role_id varchar(255),
     username varchar(255),
-    email varchar(255),
+    email varchar(255) UNIQUE,
     password_hash varchar(255),
-    created_at datetime,
-    is_active boolean
+    created_at datetime DEFAULT CURRENT_TIMESTAMP, 
+    is_active boolean DEFAULT FALSE 
 );
 
-CREATE TABLE movies (
+CREATE TABLE IF NOT EXISTS movies (
     movie_id varchar(255) PRIMARY KEY,
     title varchar(255),
     release_date date,
     director varchar(255),
     synopsis text,
     avg_rating float,
-    created_at datetime,
-    is_active boolean
+    created_at datetime DEFAULT CURRENT_TIMESTAMP, 
+    is_active boolean DEFAULT TRUE 
 );
 
-CREATE TABLE archives (
+CREATE TABLE IF NOT EXISTS archives (
     archive_id varchar(255) PRIMARY KEY,
     original_id varchar(255),
     archived_data json,
-    archived_at datetime,
+    archived_at datetime DEFAULT CURRENT_TIMESTAMP, 
     archived_by_user_id varchar(255)
 );
 
-CREATE TABLE watchlists (
+CREATE TABLE IF NOT EXISTS watchlists (
     watchlist_id varchar(255) PRIMARY KEY,
     user_id varchar(255) UNIQUE,
     name varchar(255),
-    created_at datetime
+    created_at datetime DEFAULT CURRENT_TIMESTAMP 
 );
 
-CREATE TABLE watchlist_movies (
+CREATE TABLE IF NOT EXISTS watchlist_movies (
     watchlist_id varchar(255),
-    movie_id varchar(255),
-    is_active boolean
+    movie_id varchar(255)
 );
 
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
     review_id varchar(255) PRIMARY KEY,
     user_id varchar(255),
     movie_id varchar(255),
     rating float,
     content text,
-    created_at datetime,
-    is_active boolean
+    created_at datetime DEFAULT CURRENT_TIMESTAMP,
+    is_active boolean DEFAULT TRUE
 );
 
-CREATE TABLE genres (
+CREATE TABLE IF NOT EXISTS genres (
     genre_id varchar(255) PRIMARY KEY,
-    name varchar(255),
-    description text
+    name varchar(255)
 );
 
-CREATE TABLE movie_genres (
+CREATE TABLE IF NOT EXISTS movie_genres (
     movie_id varchar(255),
     genre_id varchar(255)
 );
