@@ -20,10 +20,9 @@
         
         <!-- Cards Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
-                <h2 class="text-xl font-semibold mb-4">Activity Reports</h2>
-                <p class="text-gray-600 dark:text-gray-300">Placeholder for recent activity logs and reports.</p>
-            </div>
+
+            <?php require_once("approve_users.php"); ?>
+            
             <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
                 <h2 class="text-xl font-semibold mb-4">New Users</h2>
                 <p class="text-gray-600 dark:text-gray-300">Placeholder for new user registrations.</p>
