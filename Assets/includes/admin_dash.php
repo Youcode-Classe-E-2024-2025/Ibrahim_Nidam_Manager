@@ -19,31 +19,38 @@
         <?php require_once("stats.php"); ?>
         
         <!-- Cards Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
+        <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+            <!-- Approve Users -->
             <?php require_once("approve_users.php"); ?>
-            
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
-                <h2 class="text-xl font-semibold mb-4">New Users</h2>
-                <p class="text-gray-600 dark:text-gray-300">Placeholder for new user registrations.</p>
-            </div>
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
-                <h2 class="text-xl font-semibold mb-4">Movies</h2>
+
+            <!-- Manage User Role -->
+            <?php require_once("manage_user_role.php"); ?>
+
+            <!-- Movies -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Movies</h2>
                 <p class="text-gray-600 dark:text-gray-300">Placeholder for movie management tools.</p>
             </div>
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
-                <h2 class="text-xl font-semibold mb-4">Add Movie</h2>
+
+            <!-- Add Movie -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Add Movie</h2>
                 <p class="text-gray-600 dark:text-gray-300">Placeholder for movie addition form.</p>
             </div>
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
-                <h2 class="text-xl font-semibold mb-4">Trending NFTs</h2>
+
+            <!-- Trending NFTs -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Trending NFTs</h2>
                 <p class="text-gray-600 dark:text-gray-300">Placeholder for NFT trends and analytics.</p>
             </div>
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded p-6">
-                <h2 class="text-xl font-semibold mb-4">Support Tickets</h2>
+
+            <!-- Support Tickets -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Support Tickets</h2>
                 <p class="text-gray-600 dark:text-gray-300">Placeholder for customer support ticket overview.</p>
             </div>
         </div>
+
     </div>
 
     <script src="../js/app.js"></script>

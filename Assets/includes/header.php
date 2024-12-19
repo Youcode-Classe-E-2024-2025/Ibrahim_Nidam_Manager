@@ -7,7 +7,7 @@
         <meta name="keywords" content="movies, manager, reviews" />
         <meta name="author" content="Ibrahim Nidam"/>
 
-        <title>Movie Manager</title>
+        <title>Stream Master</title>
         
         <link rel="stylesheet" href="Assets/css/styles.css">
         <script src="https://cdn.tailwindcss.com"></script>
