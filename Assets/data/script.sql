@@ -18,15 +18,17 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS movies (
-    movie_id varchar(255) PRIMARY KEY,
-    title varchar(255),
-    release_date date,
-    director varchar(255),
-    synopsis text,
-    avg_rating float,
-    created_at datetime DEFAULT CURRENT_TIMESTAMP, 
-    is_active boolean DEFAULT TRUE 
+    movie_id VARCHAR(255) PRIMARY KEY,
+    title VARCHAR(255),
+    release_date DATE,
+    director VARCHAR(255),
+    synopsis TEXT,
+    avg_rating FLOAT DEFAULT 0.00,
+    image_path VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    is_active BOOLEAN DEFAULT TRUE
 );
+
 
 CREATE TABLE IF NOT EXISTS archives (
     archive_id varchar(255) PRIMARY KEY,
@@ -89,4 +91,12 @@ ALTER TABLE archives ADD FOREIGN KEY (archived_by_user_id) REFERENCES users (use
 INSERT IGNORE INTO roles (role_id, role) VALUES ('admin', 'admin');
 
 INSERT IGNORE INTO users (user_id, role_id, username, email, password_hash, is_active) 
-VALUES ('admin', 'admin', 'admin', 'admin@gmail.com', '$2a$12$4tU0ZnyeCeQMgzVRc8TBUOAIuJsTwaBkdqZKPWZPGfpzXs/M92Nka', TRUE);
+VALUES ('admin', 'admin', 'admin', 'a@g.com', '$2a$12$4tU0ZnyeCeQMgzVRc8TBUOAIuJsTwaBkdqZKPWZPGfpzXs/M92Nka', TRUE);
+
+INSERT IGNORE INTO genres (genre_id, name) VALUES 
+('genre-1234567-1678901234567', 'Action'),
+('genre-2345678-1678901234568', 'Adventure'),
+('genre-3456789-1678901234569', 'Animation'),
+('genre-4567890-1678901234570', 'Biography'),
+('genre-5678901-1678901234571', 'Comedy'),
+('genre-6789012-1678901234572', 'Crime');

@@ -27,10 +27,7 @@
             <?php require_once("manage_user_role.php"); ?>
 
             <!-- Movies -->
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Movies</h2>
-                <p class="text-gray-600 dark:text-gray-300">Placeholder for movie management tools.</p>
-            </div>
+            <?php require_once("movie_html.php"); ?>
 
             <!-- Add Movie -->
             <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
@@ -53,6 +50,14 @@
 
     </div>
 
+
+    <script>
+        // Initialize Chosen for Genre Selection
+        $(".chosen-select").chosen({
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    </script>
     <script src="../js/app.js"></script>
 </body>
 
