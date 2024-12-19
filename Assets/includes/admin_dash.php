@@ -1,6 +1,3 @@
-<?php
-    require_once("../data/db.php");
-    ?>
 
 <?php require_once("header.php"); ?>
 
@@ -28,12 +25,9 @@
 
             <!-- Movies -->
             <?php require_once("movie_html.php"); ?>
-
+            
             <!-- Add Movie -->
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Add Movie</h2>
-                <p class="text-gray-600 dark:text-gray-300">Placeholder for movie addition form.</p>
-            </div>
+            <?php require_once("display_movie.php"); ?>
 
             <!-- Trending NFTs -->
             <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
