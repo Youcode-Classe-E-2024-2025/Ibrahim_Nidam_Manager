@@ -103,7 +103,7 @@ if (!$movie) {
                 </div>
                 
                 <div class="flex justify-end space-x-4">
-                    <a href="display_movie.php" 
+                    <a href="admin_dash.php" 
                         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
                         Cancel
                     </a>
