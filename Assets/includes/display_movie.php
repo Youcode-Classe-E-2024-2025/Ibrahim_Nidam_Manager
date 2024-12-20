@@ -2,16 +2,17 @@
     require_once("../data/db.php");
 
     $query = "
-        SELECT 
-            m.movie_id, 
-            m.title, 
+        SELECT
+            m.movie_id,
+            m.title,
             m.release_date,
-            m.image_path, 
-            GROUP_CONCAT(g.name SEPARATOR ', ') AS genres 
+            m.image_path,
+            GROUP_CONCAT(g.name SEPARATOR ', ') AS genres
         FROM movies m
         LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id
         LEFT JOIN genres g ON mg.genre_id = g.genre_id
-        GROUP BY m.movie_id;
+        WHERE m.is_active = TRUE
+        GROUP BY m.movie_id
     ";
     $stmt = $db->prepare($query);
     $stmt->execute();
@@ -26,7 +27,7 @@
             <div class="border-2 rounded group relative bg-transparent overflow-hidden">
                 <!-- Corner Icons -->
                 <div class="absolute top-0 left-0 z-10 w-8 h-8 hover:bg-white/50 flex items-center justify-center">
-                    <span class="text-white text-lg">×</span>
+                    <a href="soft_delete_movie.php?id=<?= $movie['movie_id'] ?>" class="text-white text-lg">×</a>
                 </div>
                 <div class="absolute top-0 right-0 z-10 w-8 h-8 hover:bg-white/50 flex items-center justify-center" 
                         onclick="window.location.href='edit_movie_form.php?id=<?= $movie['movie_id'] ?>'">
