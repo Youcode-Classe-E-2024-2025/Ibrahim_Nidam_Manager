@@ -20,8 +20,9 @@
 ?>
 
 <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6">
-    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Achieved Movies</h2>
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Archieved Movies</h2>
     <div class="movies-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 cursor-pointer">
+    <?php if(!empty($movies)): ?>
 
         <?php foreach ($movies as $movie): ?>
             <div class="border-2 rounded group relative bg-transparent overflow-hidden max-w-xs mx-auto">
@@ -51,6 +52,8 @@
                 </div>
             </div>
         <?php endforeach; ?>
-
+        <?php else: ?>
+                <p class="text-gray-600 dark:text-gray-300 text-nowrap">Nothing is in the Archive.</p>
+        <?php endif ?>
     </div>
 </div>
