@@ -3,7 +3,7 @@ require_once("../data/db.php");
 require_once("slug_id.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect form data
+
     $title = $_POST['title'];
     $release_date = $_POST['release_date'];
     $director = $_POST['director'];
@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $genres = $_POST['genres'] ?? [];
     $image_path = null;
 
-    // Validate and upload the image
     if (!empty($_FILES['image']['name'])) {
         $target_dir = "../data/uploads/";
         $image_name = slug("image_id") . "-" . basename($_FILES["image"]["name"]);
@@ -24,10 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Generate unique movie ID
     $movie_id = slug("movie_id");
 
-    // Insert movie into the database
     try {
         $db->beginTransaction();
 
@@ -42,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ":image_path" => $image_path,
         ]);
 
-        // Insert movie genres
         $stmt = $db->prepare("INSERT INTO movie_genres (movie_id, genre_id) VALUES (:movie_id, :genre_id)");
         foreach ($genres as $genre_id) {
             $stmt->execute([
@@ -57,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: admin_dash.php");
 
     } catch (Exception $e) {
-        $db->rollBack();
+        $db -> rollBack();
         die("Error adding movie: " . $e->getMessage());
     }
 }

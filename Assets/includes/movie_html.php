@@ -65,7 +65,7 @@
 
         <!-- Submit Button -->
         <button type="submit" 
-            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            class="w-full bg-[#7d2ae8] text-white font-medium py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
             Add Movie
         </button>
     </form>

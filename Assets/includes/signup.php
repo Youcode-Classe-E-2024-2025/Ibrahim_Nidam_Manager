@@ -11,19 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $pass = $_POST["password"];
 
-    // Validate name format
     if (!preg_match("/^[A-Za-z]{2,50}(?:\s[A-Za-z]{2,50})*$/", $name)) {
         echo json_encode(["error" => "Invalid name format"]);
         exit;
     }
 
-    // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(["error" => "Invalid email format."]);
         exit;
     }
 
-    // Validate password format
     if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{8,}$/", $pass)) {
         echo json_encode(["error" => "Password must be at least 8 characters long and contain both letters and numbers."]);
         exit;

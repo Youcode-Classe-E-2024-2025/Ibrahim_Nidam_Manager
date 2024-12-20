@@ -23,10 +23,10 @@
             <!-- Manage User Role -->
             <?php require_once("manage_user_role.php"); ?>
 
-            <!-- Movies -->
+            <!-- Add Movies -->
             <?php require_once("movie_html.php"); ?>
             
-            <!-- Add Movie -->
+            <!-- Display Movie -->
             <?php require_once("display_movie.php"); ?>
 
             <!-- Trending NFTs -->
@@ -34,19 +34,13 @@
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Trending NFTs</h2>
                 <p class="text-gray-600 dark:text-gray-300">Placeholder for NFT trends and analytics.</p>
             </div>
-
-            <!-- Support Tickets -->
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg p-6 break-inside-avoid">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Support Tickets</h2>
-                <p class="text-gray-600 dark:text-gray-300">Placeholder for customer support ticket overview.</p>
-            </div>
+            
         </div>
 
     </div>
 
 
     <script>
-        // Initialize Chosen for Genre Selection
         $(".chosen-select").chosen({
             no_results_text: "Oops, nothing found!",
             width: "100%"
