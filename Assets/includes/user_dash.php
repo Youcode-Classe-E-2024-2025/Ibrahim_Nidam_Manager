@@ -29,6 +29,23 @@
     $reviewsStmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $reviewsStmt->execute();
     $reviews = $reviewsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $watchlistQuery = "
+    SELECT 
+        wm.watchlist_id,
+        m.movie_id,
+        m.title,
+        m.image_path
+    FROM watchlists w
+    JOIN watchlist_movies wm ON w.watchlist_id = wm.watchlist_id
+    JOIN movies m ON wm.movie_id = m.movie_id
+    WHERE w.user_id = :user_id
+    ORDER BY wm.watchlist_id DESC
+    ";
+    $watchlistStmt = $db->prepare($watchlistQuery);
+    $watchlistStmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $watchlistStmt->execute();
+    $watchlistItems = $watchlistStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -43,9 +60,9 @@
     <header class="bg-gray-800 p-4 shadow-lg flex justify-between">
         <h1 class="text-2xl font-slim text-center underline">Stream Master</h1>
         <div class="flex gap-6 items-center">
-            <button class="bg-gray-700 border-2 border-white text-white py-1 px-3 rounded shadow-lg transition-all cursor-pointer">
-                WatchList
-            </button>
+        <button onclick="toggleWatchlistSidebar()" class="bg-gray-700 border-2 border-white text-white py-1 px-3 rounded shadow-lg transition-all cursor-pointer">
+            WatchList
+        </button>
             <button class="bg-gray-700 border-2 border-white text-white py-1 px-3 rounded shadow-lg transition-all cursor-pointer" onclick="toggleSidebar()">
                 Reviews
             </button>
@@ -72,9 +89,10 @@
                                 <p class="text-xs text-gray-500"><?= htmlspecialchars(date('Y', strtotime($movie['release_date']))) ?></p>
                             </div>
                             <div class="flex flex-col gap-2 mt-2">
-                                <button class="w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-yellow-500 hover:to-pink-500 text-white py-1 px-3 rounded shadow-lg transition-all">
-                                    Watch Later
-                                </button>
+                            <button onclick="addToWatchlist('<?= htmlspecialchars($movie['movie_id']) ?>')" 
+                                    class="w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-yellow-500 hover:to-pink-500 text-white py-1 px-3 rounded shadow-lg transition-all">
+                                Watch Later
+                            </button>
                                 <button 
                                     class="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-blue-500 hover:to-green-500 text-white py-1 px-3 rounded shadow-lg transition-all"
                                     onclick="openReviewModal('<?= htmlspecialchars($movie['movie_id']) ?>')">
@@ -124,6 +142,43 @@
                 <button onclick="toggleSidebar()" class="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Close</button>
             </div>
         </div>
+
+        <!-- Sidebar for watchlist -->
+        <div id="watchlistSidebar" class="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-start hidden">
+            <div class="bg-white text-black w-96 p-6 h-full overflow-y-auto">
+                <h3 class="text-xl font-semibold mb-4">Your Watchlist</h3>
+                <div id="watchlistItems" class="space-y-4">
+                    <?php if (!empty($watchlistItems)): ?>
+                        <?php foreach ($watchlistItems as $item): ?>
+                            <div class="flex items-center space-x-4 p-2 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <img src="<?= htmlspecialchars($item['image_path']) ?>" 
+                                    alt="<?= htmlspecialchars($item['title']) ?>" 
+                                    class="w-16 h-24 object-cover rounded">
+                                <div class="flex-1">
+                                    <h4 class="font-medium text-gray-900"><?= htmlspecialchars($item['title']) ?></h4>
+                                    <div class="mt-2 space-x-2">
+                                        <button onclick="watchMovie('<?= htmlspecialchars($item['movie_id']) ?>')" 
+                                                class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors">
+                                            Watch Now
+                                        </button>
+                                        <button onclick="removeFromWatchlist('<?= htmlspecialchars($item['movie_id']) ?>')"
+                                                class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-gray-600 text-center">Your watchlist is empty.</p>
+                    <?php endif; ?>
+                </div>
+                <button onclick="toggleWatchlistSidebar()" 
+                        class="mt-4 w-full bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded">
+                    Close
+                </button>
+            </div>
+        </div>
     </main>
 
     <footer class="bg-gray-800 text-center py-4">
@@ -145,6 +200,52 @@
     function closeReviewModal() {
         document.getElementById('reviewModal').classList.add('hidden');
         document.getElementById('reviewForm').reset();
+    }
+    function toggleWatchlistSidebar() {
+        const sidebar = document.getElementById('watchlistSidebar');
+        sidebar.classList.toggle('hidden');
+    }
+
+    function addToWatchlist(movieId) {
+    fetch('add_to_watchlist.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `movie_id=${movieId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            if (data.message === 'Movie already in watchlist') {
+                alert('This movie is already in your watchlist');
+            } else {
+                alert('Failed to add to watchlist');
+            }
+        }
+    });
+}
+
+    function removeFromWatchlist(movieId) {
+        if (confirm('Are you sure you want to remove this movie from your watchlist?')) {
+            fetch('remove_from_watchlist.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `movie_id=${movieId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Failed to remove from watchlist');
+                }
+            });
+        }
     }
 </script>
 </body>

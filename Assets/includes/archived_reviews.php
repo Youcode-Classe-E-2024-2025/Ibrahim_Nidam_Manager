@@ -2,7 +2,7 @@
 require_once("../data/db.php");
 
 $query = "
-    SELECT 
+        SELECT
         a.archived_data,
         u.username,
         m.title as movie_title,
@@ -11,6 +11,8 @@ $query = "
     FROM archives a
     INNER JOIN users u ON a.archived_by_user_id = u.user_id
     LEFT JOIN movies m ON JSON_UNQUOTE(JSON_EXTRACT(a.archived_data, '$.movie_id')) = m.movie_id
+    WHERE JSON_EXTRACT(a.archived_data, '$.rating') IS NOT NULL  -- Reviews have ratings, movies don't
+    AND JSON_EXTRACT(a.archived_data, '$.content') IS NOT NULL   -- Reviews have content, movies don't
     ORDER BY a.archived_at DESC
 ";
 $stmt = $db->prepare($query);
