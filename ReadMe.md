@@ -38,8 +38,8 @@ Utiliser JavaScript pour améliorer l’interactivité et la convivialité de l�
 3. **Configurer la base de données** :
    - Faites un clic droit sur **Laragon**, puis allez dans **Tools** > **Quick Add** et téléchargez **phpMyAdmin** et **MySQL**.
    - Ouvrir **phpMyAdmin** via Laragon :
-     - Dans Laragon, cliquez sur le bouton **Database** pour accéder à phpMyAdmin.
-     - Créez une base de données `manager_db` et importez le fichier `script.sql` (disponible dans le dossier `/assets/data/`).
+     - Dans Laragon, cliquez sur le bouton **Database** pour accéder à phpMyAdmin (username = `root` et mode de passe est vide).
+     - La base de données est automatiquement créez ou vous pouvez Créez une base de données `manager_db` et importez le fichier `script.sql` (disponible dans le dossier `/assets/data/`).
 
 
 4. **Installer les dépendances Node.js** :
@@ -128,8 +128,7 @@ Envoi d’e-mails :
     Travail: individuel
     Durée de travail: 5 jours
     Date de lancement du brief: 16/12/2024 à 09:00 am
-
-Date limite de soumission: 20/12/2024 avant 12:00 am
+    Date limite de soumission: 20/12/2024 avant 12:00 am
 
 
 
