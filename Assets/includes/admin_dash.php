@@ -32,6 +32,9 @@
         </div>
             <!-- Archived Movies -->
             <?php require_once("archived_movies.php"); ?>
+            
+            <!-- Archived Reviews -->
+            <?php require_once("archived_reviews.php"); ?>
     </div>
 
 

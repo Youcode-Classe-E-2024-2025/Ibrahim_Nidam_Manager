@@ -114,7 +114,7 @@
                                 <h4 class="text-lg font-semibold"><?= htmlspecialchars($review['movie_title']) ?></h4>
                                 <p class="text-sm text-gray-600"><?= htmlspecialchars($review['content']) ?></p>
                                 <p class="text-xs text-yellow-500">Rating: <?= htmlspecialchars($review['rating']) ?>/5</p>
-                                <button onclick="removeReview(<?= $review['review_id'] ?>)" class="text-red-500 text-xs">Remove</button>
+                                <a href="remove_review.php?review_id=<?= urlencode($review['review_id']) ?>" class="text-red-500 text-xs">Remove</a>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
